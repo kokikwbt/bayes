@@ -59,23 +59,6 @@ class BLR(object):
             # Ea = 1 / self.a + x @ np.linalg.pinv(self.A) @ x
             return Emu
 
-    def sample(self, x):
-        for i in range(len(x)):
-            x[i] = x[i] ** i
-        return np.dot(self.w, x)
-
-    def sample_weight(self, m=None, A=None):
-        if m is None: m = self.m
-        if A is None: A = self.A
-        return np.random.multivariate_normal(m, A)
-
-    def sample_poly(self, x, w=None, noise=True):
-        if w is None: w = self.w
-        X = np.array([x ** i for i in range(self.d)]).T
-        y = [np.dot(self.w, x) for x in X]
-        if noise:
-            y += np.random.normal(0, self.B, len(y))
-        return X, y
 
 def main():
     sns.set()
